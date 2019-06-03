@@ -22,8 +22,9 @@ class LoginPage:
         
     def forgot_password_page(self):
         print('^^ Forgot Password ^^')
-        answer = input('Please Enter Your Secret Answer: ')
-        if self.backend_api.check_secter_answer(answer):
+        username = input('Username: ')
+        answer = input('Secret Answer: ')
+        if self.backend_api.check_secter_answer(username, answer):
             new_password = input('New Password: ')
             self.backend_api.change_password(new_password)
             self.login()

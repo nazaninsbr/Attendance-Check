@@ -15,7 +15,7 @@ class AttendenceCheckHandler:
             return True
         return False
     
-    def check_secter_answer(self, answer):
+    def check_secter_answer(self, username, answer):
         return True
     
     def change_password(self, new_password):
