@@ -12,3 +12,6 @@ class StudentExamInfo:
     
     def confirm_attendance(self):
         self.status = True
+
+    def is_confirmed(self):
+        return self.status

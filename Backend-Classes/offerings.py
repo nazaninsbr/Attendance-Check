@@ -9,6 +9,7 @@ class Offering:
         self.exam = None
         self.prof = prof
         self.students = []
+        self.prof_confirmed = False
     
     def find_student_based_on_id(self, students, _id):
         for s in students:
@@ -39,8 +40,25 @@ class Offering:
                 return True
         return False
     
+    def get_student_info(self, student_id):
+         for s in self.students:
+            if student_id == str(s.get_id()):
+                return str(s)
+    
     def confirm_attendance(self, student_id):
         for s in self.students:
             if student_id == str(s.get_id()):
                 s.confirm_attendance()
                 return 
+    
+    def are_all_studence_checked(self):
+        for s in self.students:
+            if not s.is_confirmed():
+                return False
+        return True
+    
+    def prof_confirm(self):
+        self.prof_confirmed = True
+
+    def get_offering_prof_info(self):
+        return str(self.prof)

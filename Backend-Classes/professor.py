@@ -6,3 +6,6 @@ class Professor(Person):
     
     def get_id(self):
         return super().get_id()
+    
+    def __str__(self):
+        return 'Professor Info: '+super().__str__()

@@ -42,5 +42,21 @@ class AttendenceCheckHandler:
     def confirm_attendance(self, student_id):
         return self.curr_offering.confirm_attendance(student_id)
     
+    def are_all_studence_checked(self):
+        return self.curr_offering.are_all_studence_checked()
+    
+    def get_offering_prof_info(self):
+        return self.curr_offering.get_offering_prof_info()
+    
+    def get_student_info(self, student_id):
+        return self.curr_offering.get_student_info(student_id)
+
+    def prof_confirm(self):
+        self.curr_offering.prof_confirm()
+    
+    def remove_curr_offering(self):
+        self.curr_offering = None
+
     def submit_results(self):
+        # TODO: Write this function
         pass
