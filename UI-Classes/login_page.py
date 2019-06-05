@@ -26,7 +26,7 @@ class LoginPage:
         answer = input('Secret Answer: ')
         if self.backend_api.check_secter_answer(username, answer):
             new_password = input('New Password: ')
-            self.backend_api.change_password(new_password)
+            self.backend_api.change_password(username, new_password)
             self.login()
         else:
             pass

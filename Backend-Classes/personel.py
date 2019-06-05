@@ -11,9 +11,16 @@ class Personel(Person):
             return True
         return False
     
-    def set_user_pass(self, username, password):
-        self.username = username
-        self.password = password
+    def authenticate_with_answer(self, username, answer):
+        if self.username == username and self.secret_answer == answer:
+            return True
+        return False
+    
+    def get_username(self):
+        return self.username
     
     def change_password(self, password):
         self.password = password
+
+    def get_info(self):
+        return [self.username, self.password, self.secret_answer]

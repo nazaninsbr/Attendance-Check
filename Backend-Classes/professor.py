@@ -1,10 +1,8 @@
 from person import Person
 
 class Professor(Person):
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
+    def __init__(self, first, last, id_number):
+        super().__init__(first, last, id_number)
     
-    def set_user_pass(self, username, password):
-        self.username = username
-        self.password = password
+    def get_id(self):
+        return super().get_id()

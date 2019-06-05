@@ -1,17 +1,14 @@
 import csv
 from personel import Personel
-from professor import Professor
 
 class LocalDB:
     def __init__(self):
         self.personel_file = 'personel.csv'
-        self.professors_file = 'professors.csv'
 
         self.users = []
-        self.professors = []
         self.curr_user = None
     
-    def read_csv(self, path, has_header = True):
+    def read_from_db(self, path, has_header = True):
         rows = []
         count = 0
         with open(path, newline='\n') as myFile:  
@@ -24,14 +21,10 @@ class LocalDB:
         return rows
 
     def create_instances(self):
-        personel = self.read_csv(self.personel_file)
+        personel = self.read_from_db(self.personel_file)
         for p in personel:
             self.users.append(Personel(p[0], p[1], p[2]))
 
-        profs = self.read_csv(self.professors_file)
-        for p in profs:
-            self.professors.append(Professor(p[0], p[1]))
-    
     def get_curr_user(self):
         return self.curr_user
 
@@ -42,8 +35,23 @@ class LocalDB:
                 return True
         return False
     
-    def write_to_db(self, write_data):
-        pass
+    def check_secter_answer(self, username, answer):
+        for p in self.users:
+            if p.authenticate_with_answer(username, answer):
+                self.curr_user = p
+                return True
+        return False
     
-    def read_from_db(self):
-        pass
+    def change_password(self, username, new_password):
+        if self.curr_user.get_username() == username:
+            self.curr_user.change_password(new_password)
+            self.write_to_db(self.personel_file, self.curr_user.get_info())
+        else:
+            print('ERROR IN CHANGE PASSWORD!!')
+    
+    def write_to_db(self, path, write_data):
+        with open(path, newline='\n') as myFile: 
+            writer = csv.writer(myFile)
+            reader = csv.reader(myFile)
+            # TODO : Write the password change to the DB
+
