@@ -10,6 +10,7 @@ class Offering:
         self.prof = prof
         self.students = []
         self.prof_confirmed = False
+        self.posted_to_remote_db = False
     
     def find_student_based_on_id(self, students, _id):
         for s in students:
@@ -62,3 +63,9 @@ class Offering:
 
     def get_offering_prof_info(self):
         return str(self.prof)
+    
+    def set_present(self, student_id):
+        for s in self.students:
+            if student_id == str(s.get_id()):
+                s.set_present()
+                return 

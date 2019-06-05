@@ -28,7 +28,7 @@ class UserProfilePage:
         print('(2) Show Student List')
         print('(3) Confirm Attendance Check')
         print('(4) Home')
-        c = input('Please Enter Your Choice (1/2): ')
+        c = input('Please Enter Your Choice (1/2/3/4): ')
         if c=='1':
             self.show_search_for_students_page()
         elif c=='2':
@@ -58,6 +58,14 @@ class UserProfilePage:
         student_id = input('Please Enter Your Choice (Student ID): ')
         if self.backend_api.is_student_available(student_id):
             print(self.backend_api.get_student_info(student_id))
+            present_or_not = input('Is present? (y/n)')
+            if present_or_not=='y':
+                self.backend_api.set_present(student_id)
+            elif present_or_not == 'n':
+                pass
+            else: 
+                print('Invalid choice.')
+                self.exam_attendance_check_options()
             answer = input('Confirm attendance? (y/n)')
             if answer=='y':
                 self.backend_api.confirm_attendance(student_id)
@@ -87,6 +95,6 @@ class UserProfilePage:
             self.show_choices()
         elif c=='4':
             print('^^ Bye ^^')
-            return
+            exit()
         else:
             self.show_choices()

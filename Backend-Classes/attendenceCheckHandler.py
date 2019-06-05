@@ -42,6 +42,9 @@ class AttendenceCheckHandler:
     def confirm_attendance(self, student_id):
         return self.curr_offering.confirm_attendance(student_id)
     
+    def set_present(self, student_id):
+        self.curr_offering.set_present(student_id)
+    
     def are_all_studence_checked(self):
         return self.curr_offering.are_all_studence_checked()
     
