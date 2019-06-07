@@ -4,7 +4,7 @@ class LoginPage:
     
     def show_login_error(self):
         print('* Incorrect username or password *')
-        self.login_choices()
+        return self.login_choices()
     
     def login_choices(self):
         print('(1) Login')
@@ -12,13 +12,13 @@ class LoginPage:
         print('(3) Exit')
         c = input('Please Enter Your Choice (1/2/3): ')
         if c=='1':
-            self.login()
+            return self.login()
         elif c=='2':
-            self.forgot_password_page()
+            return self.forgot_password_page()
         elif c=='3':
             return False
         else:
-            self.login_choices()
+            return self.login_choices()
         
     def forgot_password_page(self):
         print('^^ Forgot Password ^^')
@@ -27,9 +27,10 @@ class LoginPage:
         if self.backend_api.check_secter_answer(username, answer):
             new_password = input('New Password: ')
             self.backend_api.change_password(username, new_password)
-            self.login()
+            return self.login()
         else:
-            pass
+            print("Wrong Secret Answer")
+            return self.login_choices()
 
     def login(self):
         print('^^ Login ^^')
@@ -38,5 +39,5 @@ class LoginPage:
         if self.backend_api.login_to_account(username, password):
             return True
         else:
-            self.show_login_error()
+            return self.show_login_error()
     

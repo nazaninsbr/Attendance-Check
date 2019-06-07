@@ -50,8 +50,11 @@ class LocalDB:
             print('ERROR IN CHANGE PASSWORD!!')
     
     def write_to_db(self, path, write_data):
-        with open(path, newline='\n') as myFile: 
-            writer = csv.writer(myFile)
-            reader = csv.reader(myFile)
-            # TODO : Write the password change to the DB
+        r = csv.reader(open(path))
+        lines = list(r)
+        for lind in range(len(lines)):
+            if lines[lind][0] ==  write_data[0]:
+                lines[lind] = write_data
+        writer = csv.writer(open(path, 'w'))
+        writer.writerows(lines)
 
