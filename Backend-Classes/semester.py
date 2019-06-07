@@ -40,3 +40,12 @@ class Semester:
             if exam_id == o.get_exam_id():
                 return True, o
         return False, None
+
+    def get_data_to_post(self):
+        data_to_post = []
+        for o in self.offerings:
+            d = o.get_data_to_post()
+            if not d == None:
+                data_to_post.append(d)
+        return data_to_post
+

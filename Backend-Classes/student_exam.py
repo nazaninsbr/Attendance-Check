@@ -19,3 +19,6 @@ class StudentExamInfo:
 
     def is_confirmed(self):
         return self.status
+    
+    def is_present(self):
+        return self.present

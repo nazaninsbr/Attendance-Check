@@ -62,4 +62,6 @@ class AttendenceCheckHandler:
 
     def submit_results(self):
         # TODO: Write this function
+        all_data_to_post = self.semester.get_data_to_post()
+        print(all_data_to_post)
         pass

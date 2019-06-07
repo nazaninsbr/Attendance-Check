@@ -69,3 +69,23 @@ class Offering:
             if student_id == str(s.get_id()):
                 s.set_present()
                 return 
+    
+    def get_present_students_list(self):
+        li = []
+        for s in self.students:
+            if s.is_confirmed():
+                if s.is_present():
+                    li.append(s.get_id())
+        return li
+    
+    def get_data_to_post(self):
+        data_to_post = {"exam_id": None, "is_teacher_signed": None, "present_students_list": []}
+        if self.prof_confirmed:
+            data_to_post["is_teacher_signed"] = "true"
+        else:
+            data_to_post["is_teacher_signed"] = "false"
+        data_to_post["exam_id"] = str(self.exam.get_id())
+        data_to_post["present_students_list"] = self.get_present_students_list()
+        if len(data_to_post["present_students_list"])==0:
+            return None
+        return data_to_post
