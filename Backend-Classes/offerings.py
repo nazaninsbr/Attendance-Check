@@ -84,7 +84,7 @@ class Offering:
             data_to_post["is_teacher_signed"] = "true"
         else:
             data_to_post["is_teacher_signed"] = "false"
-        data_to_post["exam_id"] = str(self.exam.get_id())
+        data_to_post["exam_id"] = self.exam.get_id()
         data_to_post["present_students_list"] = self.get_present_students_list()
         if len(data_to_post["present_students_list"])==0:
             return None

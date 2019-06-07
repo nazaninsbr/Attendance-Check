@@ -61,7 +61,5 @@ class AttendenceCheckHandler:
         self.curr_offering = None
 
     def submit_results(self):
-        # TODO: Write this function
         all_data_to_post = self.semester.get_data_to_post()
-        print(all_data_to_post)
-        pass
+        self.db_handler.post_all_present_data(all_data_to_post)

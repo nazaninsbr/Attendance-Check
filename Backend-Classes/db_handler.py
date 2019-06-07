@@ -92,9 +92,14 @@ class DBHandler:
 
         return s
     
+    def post_all_present_data(self, all_data_to_post):
+        for d in all_data_to_post:
+            self.write_to_db(d)
+    
     def write_to_db(self, write_data):
+        print(write_data)
         r = requests.post(url = self.db_address, data=write_data)
-        self.isAttendanceSubmitted = True
+        print(r.json())
     
     def read_from_db(self):
         r = requests.get(url = self.db_address)
