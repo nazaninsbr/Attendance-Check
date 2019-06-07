@@ -1,4 +1,5 @@
 import requests
+import json 
 
 from local_db import LocalDB
 
@@ -97,10 +98,14 @@ class DBHandler:
             self.write_to_db(d)
     
     def write_to_db(self, write_data):
-        print(write_data)
-        r = requests.post(url = self.db_address, data=write_data)
-        print(r.json())
-    
+        write_data = json.dumps(write_data)
+        headers = {
+            'Content-Type': "application/json"
+        }
+        r = requests.post(url = self.db_address, data=write_data,headers=headers)
+        print(r.json()['status'])
+        print(r.json()['status']==200)
+            
     def read_from_db(self):
         r = requests.get(url = self.db_address)
         data = r.json() 
