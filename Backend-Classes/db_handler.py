@@ -13,6 +13,9 @@ from student import Student
 
 from urllib.request import urlopen
 
+from utils import DB_FilePath
+import csv
+
 def internet_on():
     try:
         urlopen('http://216.58.192.142', timeout=1)
@@ -100,11 +103,11 @@ class DBHandler:
         s = Semester(date)
         s.add_classes(classes, self.rooms, self.courses, self.professors, self.students)
         
-        #with open(DB_FilePath, mode='w') as myFile:
-        #    employee_writer = csv.writer(myFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            # employee_writer.writerow(['John Smith', 'Accounting', 'November'])
-        #    for x in xrange(0, len(classes)):
-        #        employee_writer.writerow([classes[x], date])
+        with open(DB_FilePath, mode='w') as myFile:
+            fieldnames = ['exam_id', 'room_number', 'course_name', 'start_at', 'end_at', 'professor', 'students', 'date']
+            writer = csv.DictWriter(myFile, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(classes)
 
         return s
     
