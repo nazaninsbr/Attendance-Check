@@ -94,6 +94,7 @@ class UserProfilePage:
             self.backend_api.submit_results()
             self.show_choices()
         elif c=='4':
+            self.backend_api.join_all_threads()
             print('^^ Bye ^^')
             exit()
         else:

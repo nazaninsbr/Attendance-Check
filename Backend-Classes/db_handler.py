@@ -1,5 +1,7 @@
 import requests
 import json 
+from multiprocessing import Process
+import time
 
 from local_db import LocalDB
 
@@ -9,15 +11,24 @@ from course import Course
 from professor import Professor
 from student import Student
 
+from urllib.request import urlopen
+
+def internet_on():
+    try:
+        urlopen('http://216.58.192.142', timeout=1)
+        return True
+    except Exception as e: 
+        return False
+
 class DBHandler:
     def __init__(self):
         self.db_address = 'http://142.93.134.194:8088/api/attendance'
         self.local = LocalDB()
-        # TODO: find a better way or place to save these
         self.rooms = []
         self.courses = []
         self.professors = []
         self.students = []
+        self.processes = []
 
     def create_instances(self):
         self.local.create_instances()
@@ -89,22 +100,44 @@ class DBHandler:
         s = Semester(date)
         s.add_classes(classes, self.rooms, self.courses, self.professors, self.students)
 
-        # TODO: add local saving capabilities 
-
         return s
     
     def post_all_present_data(self, all_data_to_post):
-        for d in all_data_to_post:
-            self.write_to_db(d)
-    
+        p = Process(target=self.post_all_present_data_using_process, args=(all_data_to_post, ))
+        self.processes.append(p)
+        p.start()
+
+    def join_all_threads(self):
+        print(self.processes)
+        print('^^ Joining all processes ^^')
+        for p in self.processes:
+            p.join()
+
+    def post_all_present_data_using_process(self, all_data_to_post):
+        print('** Submitting Data in the Background **')
+        count = 0
+        while not internet_on():
+            count += 1
+
+        while not len(all_data_to_post)==0:
+            all_data_to_retry = []
+            for d in all_data_to_post:
+                result = self.write_to_db(d)
+                if not result:
+                    all_data_to_retry.append(d)
+            all_data_to_post = all_data_to_retry
+
     def write_to_db(self, write_data):
         write_data = json.dumps(write_data)
         headers = {
             'Content-Type': "application/json"
         }
         r = requests.post(url = self.db_address, data=write_data,headers=headers)
-        print(r.json()['status'])
-        print(r.json()['status']==200)
+        if r.json()['status']==200:
+            print('** Successful Post **')
+            return True
+        return False
+            
             
     def read_from_db(self):
         r = requests.get(url = self.db_address)

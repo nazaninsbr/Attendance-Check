@@ -59,6 +59,9 @@ class AttendenceCheckHandler:
     
     def remove_curr_offering(self):
         self.curr_offering = None
+    
+    def join_all_threads(self):
+        self.db_handler.join_all_threads()
 
     def submit_results(self):
         all_data_to_post = self.semester.get_data_to_post()
