@@ -100,11 +100,11 @@ class DBHandler:
         s = Semester(date)
         s.add_classes(classes, self.rooms, self.courses, self.professors, self.students)
         
-        with open(DB_FilePath, mode='w') as myFile:
-            employee_writer = csv.writer(myFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        #with open(DB_FilePath, mode='w') as myFile:
+        #    employee_writer = csv.writer(myFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             # employee_writer.writerow(['John Smith', 'Accounting', 'November'])
-            for x in xrange(0, len(classes)):
-                employee_writer.writerow([classes[x], date])
+        #    for x in xrange(0, len(classes)):
+        #        employee_writer.writerow([classes[x], date])
 
         return s
     
