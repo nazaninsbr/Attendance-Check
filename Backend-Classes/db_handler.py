@@ -93,7 +93,8 @@ class DBHandler:
         return s
     
     def write_to_db(self, write_data):
-        pass
+        r = requests.post(url = self.db_address, data=write_data)
+        self.isAttendanceSubmitted = True
     
     def read_from_db(self):
         r = requests.get(url = self.db_address)
